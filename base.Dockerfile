@@ -10,7 +10,8 @@ USER root
 SHELL ["/bin/bash", "--login", "-o", "pipefail", "-c"]
 # Install dependencies
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG USERNAME=coder
+ARG PASSWORD=PLS19910729
+ARG USERNAME=pls331
 ARG USERID=1000
 ARG GROUPID=1000
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -24,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nvidia-modprobe \
     nvtop \
     openssh-client \
+    openssh-server \
     python3 python3-dev python3-pip python-is-python3 \
     sudo \
     tmux \
@@ -48,10 +50,31 @@ RUN groupadd -g ${GROUPID} ${USERNAME} && \
     --shell=/bin/bash && \
     echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
-# Change to your user
-USER ${USERNAME}
+
+
+# Create a directory for the SSH daemon
+RUN mkdir /var/run/sshd
+# Optionally, create a user for SSH (set a password)
+RUN echo "${USERNAME}:${PASSWORD}" | chpasswd
+# Optionally, allow root login (only if needed, not recommended)
+# RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+# Configure SSH daemon to accept remote connections
+RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+# Generate SSH host keys
+RUN chmod 700 /etc/ssh
+RUN chmod 600 /etc/ssh/ssh_host_*
+RUN chmod a+rw /etc/ssh/sshd_config
+RUN ssh-keygen -A
+# Expose port 22 (the default SSH port)
+EXPOSE 22
+
+# # Change to your user
+# USER ${USERNAME}
 # Chnage Workdir
+
 WORKDIR /home/${USERNAME}
+# VScode Tunnel Extention
+RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && tar -xf vscode_cli.tar.gz
 # Install packages inside the new environment
 RUN pip install --upgrade --no-cache-dir pip setuptools wheel && \
     pip install --upgrade --no-cache-dir \
@@ -75,3 +98,6 @@ RUN pip install --upgrade --no-cache-dir pip setuptools wheel && \
     # Set path of python packages
     echo "# Set path of python packages" >>/home/${USERNAME}/.bashrc && \
     echo 'export PATH=$HOME/.local/bin:$PATH' >>/home/${USERNAME}/.bashrc
+
+# Start the SSH service
+CMD ["/usr/sbin/sshd", "-D"]
