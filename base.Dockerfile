@@ -29,11 +29,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-dev python3-pip python-is-python3 \
     sudo \
     tmux \
+    zsh \
     unzip \
     vim \
     wget \ 
     zip && \
     apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Zsh
+RUN sudo apt update && sudo apt install -y --no-install-recommends zsh rake
+# RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # oh my zsh
+RUN sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
 
 # Download and install zellij
 RUN curl -L -o zellij.tar.gz https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz && \

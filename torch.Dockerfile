@@ -24,10 +24,9 @@ RUN cd /home/${USER_NAME}/huggingface_hub && pip install -e .
 # HF - transformers
 RUN git clone https://github.com/huggingface/transformers.git /home/${USER_NAME}/transformers
 RUN cd /home/${USER_NAME}/transformers && pip install -e .
-RUN mkdir -p /home/${USER_NAME}/models
-ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/models
+RUN mkdir -p /home/${USER_NAME}/hf_models
+ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/hf_models
 # ENV HF_HUB_OFFLINE=1
-
 
 # Developer Build for TorchTune
 # RUN git clone https://github.com/pytorch/torchtune.git /home/${USER_NAME}/torchtune
