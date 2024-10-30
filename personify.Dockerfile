@@ -8,6 +8,9 @@ ARG USER_NAME=pls331
 # Shell
 SHELL ["/bin/bash", "--login", "-o", "pipefail", "-c"]
 
+
+RUN pip install --upgrade --no-cache-dir pyarrow sentencepiece bitsandbytes && \
+    pip cache purge
 # Developer Build for TorchTune
 # RUN git clone https://github.com/pytorch/torchtune.git /home/${USER_NAME}/torchtune
 # Local Repo for Torchtune

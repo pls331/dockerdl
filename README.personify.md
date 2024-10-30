@@ -13,13 +13,10 @@
 docker build -t dockerdl-base:latest --build-arg USERNAME=pls331 --build-arg CUDA_VER=12.4.1 --build-arg UBUNTU_VER=22.04 -f base.Dockerfile .
 
 # Build dockerdl:torch_pls331
-docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile .
+docker build -t dockerdl:torch_pls331 -f dockerdl/torch.Dockerfile .
 
-# Build dockerdl-personify:torch_pls331
-docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile .
-
-# Start Container
-docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 bash
+# Build dockerdl-personify:torch_pls331 && Start Container
+docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 bash
 
 # Inside Container
 ## Test Torchtune 

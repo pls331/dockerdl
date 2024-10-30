@@ -17,7 +17,7 @@ RUN pip install --upgrade --no-cache-dir torch torchvision torchaudio torchtext 
 #     pip instal --upgrade --no-cache-dir 'huggingface_hub[cli,torch]' && \
 #     pip cache purge
 
-RUN pip install --upgrade --no-cache-dir accelerate tiktoken blobfile bitsandbytes && \
+RUN pip install --upgrade --no-cache-dir accelerate tiktoken blobfile && \
     pip cache purge
 
 # huggingface_hub
