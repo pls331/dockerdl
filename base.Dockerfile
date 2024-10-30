@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     vim \
     wget \ 
     zip && \
+    tree && \
     apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Zsh
@@ -75,12 +76,13 @@ RUN ssh-keygen -A
 EXPOSE 22
 
 # # Change to your user
-# USER ${USERNAME}
 # Chnage Workdir
 
 WORKDIR /home/${USERNAME}
 # VScode Tunnel Extention
 RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && tar -xf vscode_cli.tar.gz
+
+USER ${USERNAME}
 # Install packages inside the new environment
 RUN pip install --upgrade --no-cache-dir pip setuptools wheel && \
     pip install --upgrade --no-cache-dir \

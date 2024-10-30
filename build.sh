@@ -1,0 +1,1 @@
+docker build -t dockerdl-base:latest --build-arg USERNAME=pls331 --build-arg CUDA_VER=12.4.1 --build-arg UBUNTU_VER=22.04 -f base.Dockerfile . && docker build -t dockerdl:torch_pls331 -f torch.Dockerfile .

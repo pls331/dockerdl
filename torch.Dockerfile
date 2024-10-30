@@ -13,9 +13,12 @@ RUN pip install --upgrade --no-cache-dir torch torchvision torchaudio torchtext 
     pip install --upgrade --no-cache-dir lightning && \
     pip cache purge
 
-# RUN pip instal --upgrade --no-cache-dir  transformers huggingface_hub \
-#     pip instal --upgrade --no-cache-dir 'huggingface_hub[cli,torch]' \
+# RUN pip instal --upgrade --no-cache-dir  transformers huggingface_hub && \
+#     pip instal --upgrade --no-cache-dir 'huggingface_hub[cli,torch]' && \
 #     pip cache purge
+
+RUN pip install --upgrade --no-cache-dir accelerate tiktoken blobfile && \
+    pip cache purge
 
 # huggingface_hub
 RUN git clone https://github.com/huggingface/huggingface_hub.git /home/${USER_NAME}/huggingface_hub
@@ -26,8 +29,11 @@ RUN git clone https://github.com/huggingface/transformers.git /home/${USER_NAME}
 RUN cd /home/${USER_NAME}/transformers && pip install -e .
 RUN mkdir -p /home/${USER_NAME}/hf_models
 ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/hf_models
+ENV HF_HOME=/home/${USER_NAME}/hf_models
 # ENV HF_HUB_OFFLINE=1
 
 # Developer Build for TorchTune
 # RUN git clone https://github.com/pytorch/torchtune.git /home/${USER_NAME}/torchtune
 # RUN cd /home/${USER_NAME}/torchtune && pip install -e .
+RUN git clone https://github.com/pls331/torchtune_personify.git /home/${USER_NAME}/torchtune
+RUN cd /home/${USER_NAME}/torchtune_personify && pip install -e .
