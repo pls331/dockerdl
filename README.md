@@ -22,7 +22,12 @@ docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile
 ## Test Torchtune 
 tune run full_finetune_single_device --config llama3_2/1B_full_single_device epochs=1
 
+# One-liner : Training
+docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 tune run full_finetune_single_device --config llama3_2/personify_1B_full_single_device epochs=1
 
-# One-liner
-docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 tune run full_finetune_single_device --config llama3_2/1B_full_single_device epochs=1
+# One-liner : Generation V2
+docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 tune run dev/generate_v2 --config llama3_2/personify_generation_v2
+
+# Jupiter Notebook
+docker run --gpus all -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp --rm -it -h dockerdl -p 8888:8888 dockerdl-personify:torch_pls331 jupyter lab --no-browser --port 8888 --ServerApp.token='' --ip='*'
 ```

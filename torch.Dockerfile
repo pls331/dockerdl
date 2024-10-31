@@ -35,4 +35,3 @@ RUN mkdir -p /home/${USER_NAME}/hf_models
 ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/hf_models
 ENV HF_HOME=/home/${USER_NAME}/hf_models
 # ENV HF_HUB_OFFLINE=1
-
