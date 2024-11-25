@@ -38,8 +38,14 @@ docker run --gpus all -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\U
 # TorchTune - Example Commands & Steps
 ```
 ## Test Torchtune (Inside Container)
-docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 tune run full_finetune_single_device --config llama3_2/1B_full_single_device epochs=1
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2/1B_full_single_device epochs=1
+```
 
-# One-liner : Training 1B
-docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 tune run full_finetune_single_device --config personify/personify_1B_full_single_device epochs=1 dump_every_n_step=3
+## Text Encoder
+```
+# Train
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2_embedding/1B_full_single_device epochs=1
+
+# Eval - MTEB
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb
 ```

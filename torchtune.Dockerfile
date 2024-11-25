@@ -12,6 +12,10 @@ SHELL ["/bin/bash", "--login", "-o", "pipefail", "-c"]
 RUN pip install --upgrade --no-cache-dir pyarrow sentencepiece bitsandbytes wandb && \
     pip cache purge
 
+# Retrieval Related Libraries
+RUN pip install --upgrade --no-cache-dir mteb && \
+    pip cache purge
+
 # EluetherAI - Eval Harness
 ENV EVAL_HARNESS_DIR=/home/${USER_NAME}/huggingface_hub
 # RUN git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
