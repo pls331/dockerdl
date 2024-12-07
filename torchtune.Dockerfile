@@ -8,12 +8,13 @@ ARG USER_NAME=pls331
 # Shell
 SHELL ["/bin/bash", "--login", "-o", "pipefail", "-c"]
 
-
 RUN pip install --upgrade --no-cache-dir pyarrow sentencepiece bitsandbytes wandb && \
     pip cache purge
 
 # Retrieval Related Libraries
-RUN pip install --upgrade --no-cache-dir mteb && \
+# TODO (pls331) : better to set this env variable through docker run command instead of here
+ENV SENTENCE_TRANSFORMERS_HOME=/tmp/hf_cache/sentence_transformers
+RUN pip install --upgrade --no-cache-dir sentence_transformers mteb && \
     pip cache purge
 
 # EluetherAI - Eval Harness

@@ -31,7 +31,11 @@ ENV TRANSFORMERS_DIR=/home/${USER_NAME}/transformers
 # RUN git clone https://github.com/huggingface/transformers.git ${TRANSFORMERS_DIR}
 COPY transformers ${TRANSFORMERS_DIR}
 RUN cd  ${TRANSFORMERS_DIR} && pip install -e .
-RUN mkdir -p /home/${USER_NAME}/hf_models
-ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/hf_models
-ENV HF_HOME=/home/${USER_NAME}/hf_models
+# RUN mkdir -p /home/${USER_NAME}/hf_models
+# ENV TRANSFORMERS_CACHE=/home/${USER_NAME}/hf_models
+# ENV HF_HOME=/home/${USER_NAME}/hf_models
+# TODO (pls331) : better to set this env variable through docker run command instead of here
+RUN mkdir -p /tmp/hf_cache
+ENV TRANSFORMERS_CACHE=/tmp/hf_cache
+ENV HF_HOME=/tmp/hf_cache
 # ENV HF_HUB_OFFLINE=1
