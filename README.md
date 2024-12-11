@@ -10,7 +10,7 @@
 # Personify.AI - Example Commands & Steps
 ```
 # Build dockerdl-base
-docker build -t dockerdl-base:latest --build-arg USERNAME=pls331 --build-arg CUDA_VER=12.4.1 --build-arg UBUNTU_VER=22.04 -f base.Dockerfile .
+docker build -t dockerdl-base:latest --build-arg USERNAME=pls331 --build-arg CUDA_VER=12.4.1 --build-arg UBUNTU_VER=22.04 -f dockerdl/base.Dockerfile .
 
 # Build dockerdl:torch_pls331
 docker build -t dockerdl:torch_pls331 -f dockerdl/torch.Dockerfile .
@@ -47,5 +47,10 @@ docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile
 docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2_embedding/1B_full_single_device epochs=1
 
 # Eval - MTEB
-docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb_llama3_2_1b
 ```
+
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2_embedding/1B_full_single_device epochs=1
+
+
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb_llama3_2_1b

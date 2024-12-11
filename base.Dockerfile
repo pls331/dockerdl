@@ -33,12 +33,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
     vim \
     wget \ 
-    zip && \
-    tree && \
+    zip \
+    tree \
+    zsh \
+    rake \
+    build-essential && \
     apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Zsh
-RUN sudo apt update && sudo apt install -y --no-install-recommends zsh rake
+RUN sudo apt update && sudo apt install -y --no-install-recommends 
 # RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # oh my zsh
 RUN sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
 
