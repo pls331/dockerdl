@@ -15,6 +15,10 @@ docker build -t dockerdl-base:latest --build-arg USERNAME=pls331 --build-arg CUD
 # Build dockerdl:torch_pls331
 docker build -t dockerdl:torch_pls331 -f dockerdl/torch.Dockerfile .
 
+# Build dockerdl-torchtune:torch_pls331
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile .
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -e TORCH_LOGS=recompiles -it dockerdl-torchtune:torch_pls331 bash
+
 # Build dockerdl-personify:torch_pls331 && Start Container
 docker build -t dockerdl-personify:torch_pls331 -f dockerdl/personify.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-personify:torch_pls331 bash
 
@@ -50,7 +54,9 @@ docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile
 docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb_llama3_2_1b
 ```
 
-docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2_embedding/1B_full_single_device epochs=1
+docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -e TORCH_LOGS=recompiles -it dockerdl-torchtune:torch_pls331 tune run full_finetune_single_device --config llama3_2_embedding/1B_full_single_device epochs=1
 
 
 docker build -t dockerdl-torchtune:torch_pls331 -f dockerdl/torchtune.Dockerfile . ; docker run --gpus all -p 2222:22 -v C:\Users\panlu\Documents:/home/pls331/documents -v C:\Users\panlu\Documents\.llama\hf:/tmp -it dockerdl-torchtune:torch_pls331 tune run dev/eval_mteb --config llama3_2_embedding/eval_mteb_llama3_2_1b
+
+

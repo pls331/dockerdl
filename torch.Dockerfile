@@ -3,22 +3,19 @@ FROM dockerdl-base:latest
 
 # Install as user 1000
 ARG USER_NAME=pls331
-
 # USER ${USER_NAME}
 
 # Shell
 SHELL ["/bin/bash", "--login", "-o", "pipefail", "-c"]
+
 # Install pytorch
-RUN pip install --upgrade --no-cache-dir torch torchvision torchaudio torchtext torchserve torchao \
-    lightning && \
-    pip cache purge
+RUN pip install --upgrade --no-cache-dir torch torchvision torchaudio torchtext torchserve torchao lightning 
 
 # RUN pip instal --upgrade --no-cache-dir  transformers huggingface_hub && \
 #     pip instal --upgrade --no-cache-dir 'huggingface_hub[cli,torch]' && \
 #     pip cache purge
 
-RUN pip install --upgrade --no-cache-dir accelerate tiktoken blobfile && \
-    pip cache purge
+RUN pip install --upgrade --no-cache-dir accelerate tiktoken blobfile pyarrow sentencepiece bitsandbytes wandb
 
 
 # huggingface_hub

@@ -85,10 +85,11 @@ WORKDIR /home/${USERNAME}
 # VScode Tunnel Extention
 RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && tar -xf vscode_cli.tar.gz
 
-USER ${USERNAME}
+# USER ${USERNAME}
 # Install packages inside the new environment
-RUN pip install --upgrade --no-cache-dir pip setuptools wheel && \
-    pip install --upgrade --no-cache-dir \
+RUN python3 -m pip install --upgrade pip
+RUN pip install --upgrade --no-cache-dir pip setuptools wheel
+RUN pip install --upgrade --no-cache-dir \
     ipywidgets \
     jupyterlab \
     matplotlib \
